@@ -3,7 +3,9 @@ class CMainFrame : public CFrameWnd {
 public:
     CMainFrame();
 protected:
-    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+    afx_msg
+        void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    int OnCreate(LPCREATESTRUCT lpCreateStruct);
     DECLARE_MESSAGE_MAP()
 };
 CMainFrame::CMainFrame() {
@@ -18,7 +20,24 @@ public:
 };
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
     ON_WM_CREATE()
+    ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
+void CMainFrame::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
+    switch (nChar) {
+
+    case VK_RETURN:
+        MessageBox(L"You pressed Enter");
+        break;
+    case VK_F1:
+        MessageBox(L"Help is not available at the moment");
+        break;
+    case VK_DELETE:
+        MessageBox(L"Can't Delete This");
+        break;
+    default:
+        MessageBox(L"Whatever");
+    }
+}
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
     // Call the base class to create the window
     if (CFrameWnd::OnCreate(lpCreateStruct) == 0) {
@@ -30,6 +49,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
     // Otherwise, return -1
     return -1;
 }
+
 BOOL CMessagesApp::InitInstance() {
     m_pMainWnd = new CMainFrame;
     m_pMainWnd->ShowWindow(SW_SHOW);
