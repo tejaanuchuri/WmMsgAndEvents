@@ -5,6 +5,8 @@ public:
 protected:
     afx_msg
         void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+    afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+    afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
     int OnCreate(LPCREATESTRUCT lpCreateStruct);
     DECLARE_MESSAGE_MAP()
 };
@@ -21,6 +23,8 @@ public:
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
     ON_WM_CREATE()
     ON_WM_KEYDOWN()
+    ON_WM_LBUTTONDOWN()
+    ON_WM_RBUTTONUP()
 END_MESSAGE_MAP()
 void CMainFrame::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
     switch (nChar) {
@@ -37,6 +41,14 @@ void CMainFrame::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
     default:
         MessageBox(L"Whatever");
     }
+}
+void CMainFrame::OnLButtonDown(UINT nFlags, CPoint point) {
+    CString MsgCoord;
+    MsgCoord.Format(L"Left Button at P(%d, %d)", point.x, point.y);
+    MessageBox(MsgCoord);
+}
+void CMainFrame::OnRButtonUp(UINT nFlags, CPoint point) {
+    MessageBox(L"Right Mouse Button Up");
 }
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
     // Call the base class to create the window
